@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:show_app/constants/constants.dart';
 import 'dart:convert';
 
 import 'package:show_app/models/rates.dart';
+import 'package:show_app/views/wise_ui.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,13 +17,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Taux de change',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Taux de Change'),
-    );
+        title: 'Taux de change',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+          useMaterial3: true,
+        ),
+        home: const WiseUi() //MyHomePage(title: 'Taux de Change'),
+        );
   }
 }
 
@@ -47,8 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
   double soldeByService = 0;
 
   Future<void> fetchRates() async {
-    final response =
-        await http.get(Uri.parse("http://192.168.1.65:3000/taux"), headers: {
+    final response = await http.get(Uri.parse(URL), headers: {
       "Content-Type": "application/json",
     });
     if (response.statusCode == 200) {
